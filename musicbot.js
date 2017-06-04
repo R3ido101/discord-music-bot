@@ -296,7 +296,7 @@ bot.on("disconnect", event => {
 bot.on("message", message => {
 	if(message.channel.type === "dm" && message.author.id !== bot.user.id) { //Message received by DM
 		//Check that the DM was not send by the bot to prevent infinite looping
-		message.channel.sendMessage(dm_text);
+		message.channel.send(dm_text);
 	} else if(message.channel.type === "text" && message.channel.name === text_channel.name) { //Message received on desired text channel
 		if(message.isMentioned(bot.user)) {
 			message.reply(mention_text);
@@ -336,7 +336,7 @@ function add_to_queue(video, message) {
 
 function play_next_song() {
 	if(is_queue_empty()) {
-		text_channel.sendMessage("The queue is empty!");
+		text_channel.send("The queue is empty!");
 	}
 
 	var video_id = queue[0]["id"];
@@ -347,7 +347,7 @@ function play_next_song() {
 	now_playing_data["user"] = user;
 
 	if(inform_np) {
-		text_channel.sendMessage('Now playing: "' + title + '" (requested by ' + user + ')');
+		text_channel.send('Now playing: "' + title + '" (requested by ' + user + ')');
 	}
 
 	var audio_stream = ytdl("https://www.youtube.com/watch?v=" + video_id);
